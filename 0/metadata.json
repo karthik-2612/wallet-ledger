@@ -1,0 +1,102 @@
+{
+  "cli_version": "0.11.4",
+  "checkpoint_id": "01M4NXQ1MBGRRAF0BC6ZE3966V",
+  "session_id": "1b4c89b5-c7e7-46f5-a9a2-07dfc6f1d597",
+  "strategy": "manual-commit",
+  "created_at": "2026-10-11T16:46:10.406604Z",
+  "branch": "feat/wallet-ledger-api",
+  "checkpoints_count": 2,
+  "save_step_count": 1,
+  "files_touched": [
+    ".github/workflows/ci.yml",
+    ".gitignore",
+    "CONVENTIONS.md",
+    "README.md",
+    "openapi.yaml",
+    "pyproject.toml",
+    "tests/conftest.py",
+    "tests/test_accounts.py",
+    "tests/test_auth.py",
+    "tests/test_cli_and_openapi.py",
+    "tests/test_idempotency.py",
+    "tests/test_migrations.py",
+    "tests/test_money_movement.py",
+    "tests/test_transfers.py",
+    "uv.lock",
+    "wallet_ledger/__init__.py",
+    "wallet_ledger/app.py",
+    "wallet_ledger/cli.py",
+    "wallet_ledger/handlers/__init__.py",
+    "wallet_ledger/handlers/accounts.py",
+    "wallet_ledger/handlers/deps.py",
+    "wallet_ledger/handlers/errors.py",
+    "wallet_ledger/handlers/schemas.py",
+    "wallet_ledger/handlers/transfers.py",
+    "wallet_ledger/migrations/0001_create_api_keys_and_accounts.down.sql",
+    "wallet_ledger/migrations/0001_create_api_keys_and_accounts.up.sql",
+    "wallet_ledger/migrations/0002_create_transfers_and_transactions.down.sql",
+    "wallet_ledger/migrations/0002_create_transfers_and_transactions.up.sql",
+    "wallet_ledger/migrations/0003_create_idempotency_keys.down.sql",
+    "wallet_ledger/migrations/0003_create_idempotency_keys.up.sql",
+    "wallet_ledger/service/__init__.py",
+    "wallet_ledger/service/auth.py",
+    "wallet_ledger/service/errors.py",
+    "wallet_ledger/service/ledger.py",
+    "wallet_ledger/service/models.py",
+    "wallet_ledger/store/__init__.py",
+    "wallet_ledger/store/db.py",
+    "wallet_ledger/store/migrate.py",
+    "wallet_ledger/store/repo.py",
+    "wallet_ledger/store/tables.py"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-5-5",
+  "turn_id": "5f8242de2883",
+  "checkpoint_transcript_start": 74,
+  "transcript_lines_at_start": 74,
+  "compact_transcript_start": 11,
+  "token_usage": {
+    "input_tokens": 42,
+    "cache_creation_tokens": 66331,
+    "cache_read_tokens": 2448609,
+    "output_tokens": 53888,
+    "api_call_count": 21
+  },
+  "session_metrics": {
+    "turn_count": 4
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-10-11T16:46:10.386224Z",
+    "agent_lines": 2960,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 2960,
+    "total_lines_changed": 2960,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 101,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".claude/settings.json": 101
+      }
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 101,
+      "user_lines_removed": 0,
+      "agent_lines_added": 2960,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".claude/settings.json": 101
+      }
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+<pasted_content id="05a3">
+Build a small, correct, well-structured Go REST API for a wallet ledger.
+
+- Stack: Go, net/http (stdlib router), SQLite (modernc.org/sqlite), no other services
+- Endpoints: POST /accounts, GET /accounts/{id}, POST /accounts/{id}/deposit,
+  POST /accounts/{id}/withdraw, POST /transfers, GET /accounts/{id}/transactions
+- Rules: amounts are integer minor units, balance never goes negative, transfers
+  are atomic (single DB transaction), deposit/withdraw/transfer accept an
+  Idempotency-Key header, simple API-key auth where each key owns specific accounts
+- Layout: handlers/ service/ store/ migrations/ (numbered SQL files, each with up and down)
+- Include: table-driven tests with good coverage, a GitHub Actions workflow running
+  go vet + tests, an openapi.yaml, and a CONVENTIONS.md (error handling, layering
+  rules, migration rules, testing expectations)
+- Keep it around 500-800 lines excluding tests.
+</pasted_content id="05a3">
+
+ instead of the above mentioned techstack use this stack 
+Python 3.12, FastAPI, SQLAlchemy, SQLite, pytest, ruff
+
+---
+
+<task-notification>
+<task-id>bp4y51tw0</task-id>
+<tool-use-id>toolu_01GeKTyh8kXEiE9rj4sb13Te</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-karthikmeka-Projects-wallet-ledger/1b4c89b5-c7e7-46f5-a9a2-07dfc6f1d597/tasks/bp4y51tw0.output</output-file>
+<status>completed</status>
+<summary>Background command "Install uv and Python 3.12" completed (exit code 0)</summary>
+</task-notification>
