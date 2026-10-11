@@ -1,0 +1,18 @@
+check entire session lsit
+
+---
+
+<pasted_content id="05a3">
+entire checkpoint list
+  branch       main
+  checkpoints  0
+
+No checkpoints found on this branch.
+Checkpoints will appear here after you save changes during an agent session.
+</pasted_content id="05a3">
+
+ why is it like this
+
+---
+
+yes
