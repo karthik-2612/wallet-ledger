@@ -1,0 +1,505 @@
+openapi: 3.1.0
+info:
+  title: Wallet Ledger
+  version: 0.1.0
+paths:
+  /accounts:
+    post:
+      tags:
+      - accounts
+      summary: Create Account
+      operationId: create_account_accounts_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAccountRequest'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountOut'
+        '401':
+          description: Missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Account not found or not owned by the caller
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Invalid request or business rule violation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - APIKeyHeader: []
+  /accounts/{account_id}:
+    get:
+      tags:
+      - accounts
+      summary: Get Account
+      operationId: get_account_accounts__account_id__get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Account Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountOut'
+        '401':
+          description: Missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Account not found or not owned by the caller
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Invalid request or business rule violation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /accounts/{account_id}/deposit:
+    post:
+      tags:
+      - accounts
+      summary: Deposit
+      operationId: deposit_accounts__account_id__deposit_post
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Account Id
+      - name: Idempotency-Key
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            minLength: 1
+            maxLength: 255
+          - type: 'null'
+          description: Retries with the same key and body return the original result
+          title: Idempotency-Key
+        description: Retries with the same key and body return the original result
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AmountRequest'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionOut'
+        '401':
+          description: Missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Account not found or not owned by the caller
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Invalid request or business rule violation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /accounts/{account_id}/withdraw:
+    post:
+      tags:
+      - accounts
+      summary: Withdraw
+      operationId: withdraw_accounts__account_id__withdraw_post
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Account Id
+      - name: Idempotency-Key
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            minLength: 1
+            maxLength: 255
+          - type: 'null'
+          description: Retries with the same key and body return the original result
+          title: Idempotency-Key
+        description: Retries with the same key and body return the original result
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AmountRequest'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionOut'
+        '401':
+          description: Missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Account not found or not owned by the caller
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Invalid request or business rule violation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /accounts/{account_id}/transactions:
+    get:
+      tags:
+      - accounts
+      summary: List Transactions
+      operationId: list_transactions_accounts__account_id__transactions_get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Account Id
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          default: 50
+          title: Limit
+      - name: before_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            minimum: 1
+          - type: 'null'
+          description: Cursor from next_before_id
+          title: Before Id
+        description: Cursor from next_before_id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionPageOut'
+        '401':
+          description: Missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Account not found or not owned by the caller
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Invalid request or business rule violation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /transfers:
+    post:
+      tags:
+      - transfers
+      summary: Create Transfer
+      description: Move funds from an account the caller owns to any account in the
+        same currency.
+      operationId: create_transfer_transfers_post
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: Idempotency-Key
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            minLength: 1
+            maxLength: 255
+          - type: 'null'
+          description: Retries with the same key and body return the original result
+          title: Idempotency-Key
+        description: Retries with the same key and body return the original result
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransferRequest'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransferOut'
+        '401':
+          description: Missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Account not found or not owned by the caller
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Invalid request or business rule violation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    AccountOut:
+      properties:
+        id:
+          type: string
+          title: Id
+        currency:
+          type: string
+          title: Currency
+        balance:
+          type: integer
+          title: Balance
+        created_at:
+          type: string
+          title: Created At
+      type: object
+      required:
+      - id
+      - currency
+      - balance
+      - created_at
+      title: AccountOut
+    AmountRequest:
+      properties:
+        amount:
+          type: integer
+          maximum: 1000000000000000.0
+          exclusiveMinimum: 0.0
+          title: Amount
+          description: Integer minor units, e.g. cents
+      additionalProperties: false
+      type: object
+      required:
+      - amount
+      title: AmountRequest
+    CreateAccountRequest:
+      properties:
+        currency:
+          type: string
+          pattern: ^[A-Z]{3}$
+          title: Currency
+          examples:
+          - USD
+      additionalProperties: false
+      type: object
+      required:
+      - currency
+      title: CreateAccountRequest
+    ErrorDetail:
+      properties:
+        code:
+          type: string
+          title: Code
+        message:
+          type: string
+          title: Message
+        details:
+          anyOf:
+          - items:
+              additionalProperties: true
+              type: object
+            type: array
+          - type: 'null'
+          title: Details
+      type: object
+      required:
+      - code
+      - message
+      title: ErrorDetail
+    ErrorResponse:
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorDetail'
+      type: object
+      required:
+      - error
+      title: ErrorResponse
+    TransactionOut:
+      properties:
+        id:
+          type: integer
+          title: Id
+        account_id:
+          type: string
+          title: Account Id
+        type:
+          type: string
+          enum:
+          - deposit
+          - withdrawal
+          - transfer_in
+          - transfer_out
+          title: Type
+        amount:
+          type: integer
+          title: Amount
+        balance_after:
+          type: integer
+          title: Balance After
+        transfer_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Transfer Id
+        created_at:
+          type: string
+          title: Created At
+      type: object
+      required:
+      - id
+      - account_id
+      - type
+      - amount
+      - balance_after
+      - transfer_id
+      - created_at
+      title: TransactionOut
+    TransactionPageOut:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/TransactionOut'
+          type: array
+          title: Data
+        next_before_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Next Before Id
+          description: Pass as before_id to fetch the next page
+      type: object
+      required:
+      - data
+      - next_before_id
+      title: TransactionPageOut
+    TransferOut:
+      properties:
+        id:
+          type: string
+          title: Id
+        from_account_id:
+          type: string
+          title: From Account Id
+        to_account_id:
+          type: string
+          title: To Account Id
+        amount:
+          type: integer
+          title: Amount
+        currency:
+          type: string
+          title: Currency
+        created_at:
+          type: string
+          title: Created At
+      type: object
+      required:
+      - id
+      - from_account_id
+      - to_account_id
+      - amount
+      - currency
+      - created_at
+      title: TransferOut
+    TransferRequest:
+      properties:
+        from_account_id:
+          type: string
+          title: From Account Id
+        to_account_id:
+          type: string
+          title: To Account Id
+        amount:
+          type: integer
+          maximum: 1000000000000000.0
+          exclusiveMinimum: 0.0
+          title: Amount
+          description: Integer minor units, e.g. cents
+      additionalProperties: false
+      type: object
+      required:
+      - from_account_id
+      - to_account_id
+      - amount
+      title: TransferRequest
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      in: header
+      name: X-API-Key
